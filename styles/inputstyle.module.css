@@ -1,0 +1,19 @@
+label.label input[type="file"] {
+  position: absolute;
+  top: -1000px;
+}
+.label {
+  cursor: pointer;
+  border: 1px solid #ffffff;
+  padding: 5px 15px;
+  margin: 5px;
+  background: #ffffff;
+  color: #7d0000;
+  display: inline-block;
+}
+.label:invalid + span {
+  color: #ffffff;
+}
+.label:valid + span {
+  color: #ffffff;
+}
