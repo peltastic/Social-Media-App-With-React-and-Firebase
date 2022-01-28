@@ -13,7 +13,7 @@ import { UserDataContext } from "../AuthContext/UserContextProvider";
 
 import Comments from "./Comments";
 import Backdrop from "./Backdrop";
-
+import classes from "../styles/posts.module.css";
 
 function Post({
   username,
@@ -85,21 +85,23 @@ function Post({
     }
   };
 
-  const deletePostHanlder  = () => {
+  const deletePostHanlder = () => {
     if (pid) {
-      deletePost(pid)
+      deletePost(pid);
     }
-  }
+  };
 
   return (
     <>
       {showComment ? (
         <>
           <Comments pid={pid} />
-          <Backdrop clicked={toggleShowComments} color={"light"}/>
+          <Backdrop clicked={toggleShowComments} color={"light"} />
         </>
       ) : null}
-      <div className="w-full border my-4 relative text-white">
+      <div
+        className={`w-full py-2 mb-12 relative text-white ${classes.post_background}`}
+      >
         {isUser ? (
           <button
             className={`absolute right-10 top-2 text-sm cursor-pointer bg-white text-red-600 py-1 px-1 ${
@@ -111,9 +113,12 @@ function Post({
           </button>
         ) : null}
         {isUser ? (
-          <BsThreeDotsVertical className="absolute right-2 top-4 cursor-pointer" onClick={() => setShowDelete(!showDelete)} />
+          <BsThreeDotsVertical
+            className="absolute right-4 top-6 cursor-pointer"
+            onClick={() => setShowDelete(!showDelete)}
+          />
         ) : null}
-        <div className=" flex items-center my-2 mx-2">
+        <div className=" flex items-center my-2 mx-4">
           <div
             className="border h-8 w-8 rounded-full relative mr-2"
             onClick={() => router.push(`/profile/${smid}`)}
@@ -132,13 +137,13 @@ function Post({
         </div>
         <div className="w-full">
           {postType === "image_only" || postType === "caption_and_post" ? (
-            <img src={postImage} className="w-full" />
+            <img src={postImage} className="w-full mb-2" />
           ) : null}
           {postType === "caption_only" || postType === "caption_and_post" ? (
-            <p className="mx-2">{caption}</p>
+            <p className="mx-4">{caption}</p>
           ) : null}
         </div>
-        <div className=" flex items-center mx-2 my-2">
+        <div className=" flex items-center mx-4 my-2">
           <div className="flex items-center">
             {postIsliked ? (
               <FcLike

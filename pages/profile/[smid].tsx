@@ -35,6 +35,7 @@ function UserProfile() {
     if (smid && userSmid) {
       checkIsFollowing(smid);
       fetchUserProile(smid);
+      followingCountHanlder(smid);
       const q = query(collection(db, "Posts"), where("smid", "==", smid));
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const posts = [];
@@ -73,6 +74,16 @@ function UserProfile() {
     });
   };
 
+  const followingCountHanlder = (smid) => {
+    const unsub = onSnapshot(doc(db, "following", smid), (doc) => {
+      const followingData = [];
+      for (const key in doc.data()) {
+        followingData.push(doc.data()[key]);
+      }
+      setFollowingCount(followingData.length);
+    });
+  };
+
   const fetchUserProile = async (smid) => {
     const userRef = collection(db, "users");
 
@@ -105,11 +116,11 @@ function UserProfile() {
       {showCreatePost ? (
         <>
           <CreatePost clicked={createPostHandler} />
-          <Backdrop clicked={createPostHandler} color={"dark"}/>
+          <Backdrop clicked={createPostHandler} color={"dark"} />
         </>
       ) : null}
-      <Sidebar clicked={createPostHandler} smid={userSmid}/>
-      <div className="mx-auto  w-1/2 bg-orange-900 text-white  relative  py-4">
+      <Sidebar clicked={createPostHandler} smid={userSmid} />
+      <div className="mx-auto  w-1/2 text-white  relative  py-4">
         {userPic ? (
           <img
             className="rounded-full h-20 w-20 mx-auto"
@@ -122,13 +133,13 @@ function UserProfile() {
         {username ? (
           <p className="font-bold text-center">{"@" + username}</p>
         ) : (
-          <div className="bg-gray-300 mx-auto animate-pulse w-32 h-4 my-2"></div>
+          <>
+            <div className="bg-gray-300 mx-auto animate-pulse w-32 h-4 my-2"></div>
+            <div className="bg-gray-300 mx-auto animate-pulse w-44 h-4 my-2"></div>
+          </>
         )}
-        {userbio ? (
-          <p className="text-center text-sm my-2"> {userbio} </p>
-        ) : (
-          <div className="bg-gray-300 mx-auto animate-pulse w-44 h-4 my-2"></div>
-        )}
+
+        <p className="text-center text-sm my-2"> {userbio} </p>
 
         <div className="flex justify-center items-center mx-auto">
           <p className="">followers</p>
@@ -146,7 +157,7 @@ function UserProfile() {
           </button>
         )}
 
-        <div className="w-full border mt-8"></div>
+        <div className="w-full border mt-8 mb-10"></div>
         <div className=" px-8 w-full  ">
           {userPost.map((item, index) => (
             <Post
@@ -163,8 +174,6 @@ function UserProfile() {
           ))}
         </div>
       </div>
-      
-    
     </>
   );
 }

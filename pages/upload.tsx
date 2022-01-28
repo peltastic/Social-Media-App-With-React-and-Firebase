@@ -1,6 +1,7 @@
 import { FaUser } from "react-icons/fa";
 import { GrAdd } from "react-icons/gr";
 import classes from "../styles/inputstyle.module.css";
+import styles from "../styles/upload.module.css";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { UserDataContext } from "../AuthContext/UserContextProvider";
@@ -15,7 +16,7 @@ function Upload() {
   const nextHandler = () => {
     if (uid) {
       uploadProfilePic(uid, profilePicFile);
-      postBio(uid, bio)
+      postBio(uid, bio);
       router.push("/");
     }
   };
@@ -34,10 +35,14 @@ function Upload() {
   };
   return (
     <>
-      <div className=" fixed dead-center top-1/2 items-center flex flex-wrap w-1/2">
+      <div
+        className={`color_main py-2   dead-center2 top-1/2 items-center flex flex-wrap w-1/2 ${styles.upload_container}`}
+      >
         <div className=" flex mx-auto items-center">
-          <div className=" border mr-4 rounded-full w-32 h-32 relative">
-            <FaUser className="text-7xl dead-center top-1/2" />
+          <div className={` border mr-4 rounded-full w-32 h-32 relative ${styles.profile_container}`}>
+            <FaUser
+              className={`text-7xl dead-center top-1/2 ${styles.text_profile}`}
+            />
           </div>
           <div className="">
             <label className={classes.label}>
@@ -51,8 +56,10 @@ function Upload() {
                   profilePicFile ? "text-green-500" : null
                 }`}
               >
-                <p className="mr-1">
-                  {profilePicFile ? "Uploaded" : "Upload Profile Picture"}
+                <p
+                  className={`mr-1 text-black font-bold ${styles.text_upload}`}
+                >
+                  {profilePicFile ? "Uploaded" : "Profile Picture"}
                 </p>
                 {profilePicFile ? <AiOutlineCheck /> : <GrAdd />}
               </span>
@@ -67,17 +74,17 @@ function Upload() {
         ></textarea>
         <div className="flex mx-auto">
           <button
-            className="border w-36 text-center mx-4"
+            className="mx-6 text-center my-4 py-1 px-6  rounded-md bg-black text-white"
             onClick={nextHandler}
           >
-            Next
+            NEXT
           </button>
 
           <button
-            className="border w-36 text-center mx-4"
+            className="mx-6 text-center my-4 py-1 px-6 rounded-md bg-black text-white"
             onClick={nextHandler}
           >
-            Skip
+            SKIP
           </button>
         </div>
       </div>

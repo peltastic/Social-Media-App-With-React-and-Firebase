@@ -22,7 +22,7 @@ function CreatePost({clicked}) {
 
   const sendPostHandler = () => {
     if (captionUpload || imageUploaded) {
-      if (smid && username && profilePic) {
+      if (smid && username) {
         sendPost(smid, captionUpload, username, profilePic, imageUploaded, clicked);
       }
       
@@ -30,7 +30,7 @@ function CreatePost({clicked}) {
   };
 
   return (
-    <div className="z-50 dead-center2 top-1/2 w-2/3 h-80 bg-orange-900 px-6 ">
+    <div className="z-50 dead-center2 top-1/2 w-2/3 h-80 color_main rounded-md px-6 ">
       <h1 className="text-center mb-4 text-white">Create a Post</h1>
       <div className="flex items-center">
         <textarea
@@ -48,7 +48,7 @@ function CreatePost({clicked}) {
               ${imageUploaded ? "text-green-500" : null}
             `}
           >
-            <p className="mr-1">
+            <p className="mr-1 text-black font-bold">
               {imageUploaded ? "Uploaded" : "Upload Image File"}
             </p>
             {imageUploaded ? <AiOutlineCheck/> : <GrAdd className="text-white"/>}

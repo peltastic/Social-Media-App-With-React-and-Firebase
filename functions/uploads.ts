@@ -10,15 +10,19 @@ export const postBio = (uid: string, bio: string) => {
 };
 
 export const uploadProfilePic = (uid: string, file) => {
-  const proPictureRef = ref(storage, `profilepic/${uid}`);
-  uploadBytes(proPictureRef, file)
-    .then((snapshot) => {
-      return getDownloadURL(ref(storage, `profilepic/${uid}`));
-    })
-    .then((url) => {
-      const userRef = doc(db, "users", uid);
-      setDoc(userRef, { profilePic: url }, { merge: true });
-    });
+  if (file) {
+    const proPictureRef = ref(storage, `profilepic/${uid}`);
+    uploadBytes(proPictureRef, file)
+      .then((snapshot) => {
+        return getDownloadURL(ref(storage, `profilepic/${uid}`));
+      })
+      .then((url) => {
+        const userRef = doc(db, "users", uid);
+        setDoc(userRef, { profilePic: url }, { merge: true });
+      });
+  } else {
+    setDoc(doc(db, "users", uid), {profilePic: ""}, {merge: true})
+  }
 };
 
 const uploadPostImage = (
@@ -54,8 +58,7 @@ const uploadPostImage = (
       });
     })
     .then(() => {
-      return setDoc(doc(db, "comments", pid), {
-      });
+      return setDoc(doc(db, "comments", pid), {});
     })
     .then(() => {
       console.log("posted!");

@@ -1,0 +1,32 @@
+.upload_container {
+  border-radius: 13px;
+  background: linear-gradient(145deg, #5b4141, #6c4d4d);
+  box-shadow: 6px 6px 12px #513a3a, -6px -6px 12px #795656;
+}
+
+
+@media (max-width: 850px) {
+    .upload_container {
+        width: 80%;
+    }
+}
+@media (max-width: 600px) {
+    .upload_container {
+        width: 90%;
+    }
+}
+
+@media (max-width: 400px) {
+    .text_upload {
+        font-size: .7rem;
+    }
+}
+@media (max-width: 400px) {
+    .text_profile {
+        font-size: 2rem;
+    }
+    .profile_container {
+        height: 4rem;
+        width: 4rem;
+    }
+}

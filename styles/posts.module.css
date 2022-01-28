@@ -1,0 +1,20 @@
+.post_background {
+    border-radius: 13px;
+    background: #654848;
+    box-shadow:  5px 5px 10px #513a3a,
+                 -5px -5px 10px #795656;
+}
+
+
+
+@media (max-width: 800px) {
+    .posts_background {
+      margin-left: 35%;
+    }
+}
+@media (max-width: 600px) {
+    .posts_background {
+      margin: 2rem auto;
+      width: 70%;
+    }
+}

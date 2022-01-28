@@ -2,6 +2,7 @@ import { useState } from "react";
 import { signUserUp, signUserIn } from "../functions/auth";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import classes from "../styles/signup.module.css";
 
 function Signup({ isLogin }) {
   const router = useRouter();
@@ -40,9 +41,11 @@ function Signup({ isLogin }) {
 
   return (
     <>
-      <div className=" mx-auto h-screen py-2 rounded-sm  w-1/2 bg-orange-900 shadow-xl">
+      <div
+        className={`mx-auto py-2 dead-center top-1/2 rounded-sm  w-1/2 ${classes.signup_background}`}
+      >
         <form
-        className="mt-24"
+          className=""
           onSubmit={() =>
             signUpHandler(
               credentials.email,
@@ -51,7 +54,9 @@ function Signup({ isLogin }) {
             )
           }
         >
-          <div className={`center-signup relative flex-wrap`}>
+          <div
+            className={`center-signup relative flex-wrap ${classes.signup_input_container}`}
+          >
             <label
               className={`absolute  left-10 ${
                 focused === "email" ? "top-0 text-sm text-white" : "top-1/2  "
@@ -73,7 +78,7 @@ function Signup({ isLogin }) {
               required
             />
           </div>
-          <div className=" center-signup relative flex-wrap">
+          <div className={` center-signup relative flex-wrap ${classes.signup_input_container}`}>
             <label
               className={`absolute  left-14 ${
                 focused === "password"
@@ -102,7 +107,7 @@ function Signup({ isLogin }) {
           ) : null}
           {isLogin ? null : (
             <>
-              <div className=" center-signup relative flex-wrap">
+              <div className={` center-signup relative flex-wrap ${classes.signup_input_container}`}>
                 <label
                   className={`absolute  left-14 ${
                     focused === "username"
@@ -133,9 +138,35 @@ function Signup({ isLogin }) {
           )}
         </form>
         {!isLogin ? (
-        <div className=" mx-auto mt-4 items-center flex flex-col">
+          <div className=" mx-auto mt-4 items-center flex flex-col">
+            <button
+              className="mx-6 text-center my-4 py-1  px-16 rounded-md bg-black text-white"
+              onClick={() => {
+                signUpHandler(
+                  credentials.email,
+                  credentials.password,
+                  credentials.username
+                );
+              }}
+            >
+              SIGN UP
+            </button>
+
+            <div className="mx-6 mb-6 items-center flex-col flex">
+              <p className="text-xs mb-1 text-white">
+                Have an account already?
+              </p>
+              <Link href={"/login"}>
+                <a className=" mx-6 py-1 text-center px-16 rounded-md bg-black text-white">
+                  LOG IN
+                </a>
+              </Link>
+            </div>
+          </div>
+        ) : null}
+        {isLogin ? (
           <button
-            className="mx-6 text-center my-4 py-1 w-52 rounded-md bg-black text-white"
+            className="text-center block mx-auto my-8 py-1 rounded-md w-52 bg-black text-white"
             onClick={() => {
               signUpHandler(
                 credentials.email,
@@ -144,35 +175,10 @@ function Signup({ isLogin }) {
               );
             }}
           >
-            SIGN UP
+            NEXT
           </button>
-
-          <div className="mx-6 items-center flex-col flex">
-            <p className="text-xs mb-1 text-white">Have an account already?</p>
-            <Link href={"/login"}>
-              <a className=" py-1 text-center w-52 rounded-md bg-black text-white">
-                LOG IN
-              </a>
-            </Link>
-          </div>
-        </div>
-      ) : null}
-      {isLogin ? (
-        <button
-          className="text-center block mx-auto my-8 py-1 rounded-md w-52 bg-black text-white"
-          onClick={() => {
-            signUpHandler(
-              credentials.email,
-              credentials.password,
-              credentials.username
-            );
-          }}
-        >
-          NEXT
-        </button>
-      ) : null}
+        ) : null}
       </div>
-      
     </>
   );
 }

@@ -1,0 +1,22 @@
+.signup_background {
+  border-radius: 13px;
+  background: linear-gradient(145deg, #5b4141, #6c4d4d);
+  box-shadow: 6px 6px 12px #513a3a, -6px -6px 12px #795656;
+}
+
+@media (max-width: 800px) {
+  .signup_background {
+    width: 70%;
+  }
+}
+@media (max-width: 600px) {
+  .signup_background {
+    width: 85%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .signup_input_container {
+    width: 70%;
+  }
+}

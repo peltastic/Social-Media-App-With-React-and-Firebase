@@ -1,8 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect } from "react";
 import Post from "./Post";
-import { UserDataContext } from "../AuthContext/UserContextProvider";
-import { collection, query, where, onSnapshot } from "firebase/firestore";
-import { db } from "../firebaseconfig/firebase";
+import classes from "../styles/posts.module.css";
 
 function Posts({ posts }) {
   // const [uid, smid, username, profilePic] = useContext(UserDataContext)
@@ -10,7 +8,9 @@ function Posts({ posts }) {
   useEffect(() => {}, []);
 
   return (
-    <div className={` mx-auto  w-1/2 transition-all`}>
+    <div
+      className={` mx-auto mt-8 w-1/2 transition-all ${classes.posts_background}`}
+    >
       {posts.map((item, index) => (
         <Post
           key={index}
@@ -21,6 +21,7 @@ function Posts({ posts }) {
           postType={item.postType}
           smid={item.smid}
           pid={item.pid}
+          isUser={false}
         />
       ))}
     </div>

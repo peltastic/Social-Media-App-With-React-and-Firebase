@@ -45,6 +45,7 @@ function Comments({ pid }) {
             username={item.username}
             profilepic={item.profilepic}
             comment={item.comment}
+            smid={item.smid}
           />
         ))}
       </>
@@ -52,7 +53,7 @@ function Comments({ pid }) {
   }
 
   return (
-    <div className=" w-1/3 h-screen z-50 bg-orange-900 fixed top-0 right-0 px-2 py-3">
+    <div className=" w-1/3 h-screen z-50 color_main fixed top-0 right-0 px-2 py-3">
       {Comments}
       <div className="absolute bottom-3 w-full">
         <form onSubmit={addCommentHandler}>

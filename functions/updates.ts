@@ -49,6 +49,7 @@ export async function addComment(
         comment: comment,
         username: username,
         profilepic: profilepic,
+        smid: userSmid
       },
     },
     { merge: true }
