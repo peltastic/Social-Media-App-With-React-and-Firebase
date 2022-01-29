@@ -17,13 +17,12 @@ export const UserContextProvider = ({ children }) => {
         // https://firebase.google.com/docs/reference/js/firebase.User
         const uid = user.uid;
         getUserData(uid);
-        console.log("in");
 
         // ...
       } else {
         // User is signed out
         // ...
-        console.log("out");
+
         router.push("/signup");
       }
     });
@@ -32,14 +31,6 @@ export const UserContextProvider = ({ children }) => {
     // const docRef = doc(db, "users", uid);
     // const docSnap = await getDoc(docRef);
     const unsub = onSnapshot(doc(db, "users", uid), (doc) => {
-      console.log(
-        uid,
-        doc.data().smid,
-        doc.data().username,
-        doc.data().profilePic,
-        doc.data().bio
-      );
-
       setUserData([
         uid,
         doc.data().smid,
