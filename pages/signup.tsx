@@ -19,7 +19,7 @@ function Signup({ isLogin }) {
   const [credentialErr, setCredentialErr] = useState(false);
 
   const signUpHandler = (email: string, password: string, username: string) => {
-    setLoading(true)
+    setLoading(true);
     if (isLogin) {
       if (email && password) {
         signUserIn(email, password);
@@ -41,18 +41,17 @@ function Signup({ isLogin }) {
       }
     }
   };
-  
 
   return (
     <>
-      {loading ? (
-        <div className=" fixed bottom-20 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Spinner />
-        </div>
-      ) : null}
       <div
         className={`mx-auto py-2 dead-center top-1/2 rounded-sm  w-1/2 ${classes.signup_background}`}
       >
+        {loading ? (
+          <div className=" dead-center -bottom-4">
+            <Spinner />
+          </div>
+        ) : null}
         <form
           className=""
           onSubmit={() =>
