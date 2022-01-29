@@ -9,6 +9,7 @@ import {
   getDocs,
   doc,
 } from "firebase/firestore";
+import classes from "../../styles/profile.module.css"
 import { db } from "../../firebaseconfig/firebase";
 import { useRouter } from "next/router";
 import Backdrop from "../../components/Backdrop";
@@ -120,7 +121,7 @@ function UserProfile() {
         </>
       ) : null}
       <Sidebar clicked={createPostHandler} smid={userSmid} />
-      <div className="mx-auto  w-1/2 text-white  relative  py-4">
+      <div className={`mx-auto  w-1/2 text-white  relative  py-4 ${classes.profile}`}>
         {userPic ? (
           <img
             className="rounded-full h-20 w-20 mx-auto"

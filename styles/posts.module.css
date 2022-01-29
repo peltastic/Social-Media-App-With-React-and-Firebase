@@ -18,3 +18,11 @@
       width: 70%;
     }
 }
+@media (max-width: 400px) {
+    .posts_background {
+      margin:2rem auto;
+      display: block;
+      width: 90%;
+      margin-top: 5rem;
+    }
+}

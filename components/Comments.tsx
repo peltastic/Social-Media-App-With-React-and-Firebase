@@ -4,10 +4,11 @@ import { IoMdSend } from "react-icons/io";
 import { UserDataContext } from "../AuthContext/UserContextProvider";
 
 import Comment from "./Comment";
+import styles from "../styles/comments.module.css"
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebaseconfig/firebase";
 
-function Comments({ pid }) {
+function Comments({ pid, show}) {
   const [uid, userSmid, username, profilePic] = useContext(UserDataContext);
   const [comment, setComment] = useState("");
   const [postComments, setPostComments] = useState([]);
@@ -53,9 +54,9 @@ function Comments({ pid }) {
   }
 
   return (
-    <div className=" w-1/3 h-screen z-50 color_main fixed top-0 right-0 px-2 py-3">
+    <div className={` w-1/3 overflow-scroll h-screen z-50 color_main fixed top-0 right-0 px-2 py-3 pt-12 transition-all ${show==="show" ? styles.show : styles.hide} ${styles.comments}`} >
       {Comments}
-      <div className="absolute bottom-3 w-full">
+      <div className={` ${styles.input} color_main`}>
         <form onSubmit={addCommentHandler}>
           <input
             type="text"

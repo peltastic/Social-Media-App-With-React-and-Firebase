@@ -3,10 +3,12 @@ import { signUserUp, signUserIn } from "../functions/auth";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import classes from "../styles/signup.module.css";
+import Spinner from "../components/Spinner";
 
 function Signup({ isLogin }) {
   const router = useRouter();
   const [focused, setFocused] = useState("none");
+  const [loading, setLoading] = useState(false);
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -17,6 +19,7 @@ function Signup({ isLogin }) {
   const [credentialErr, setCredentialErr] = useState(false);
 
   const signUpHandler = (email: string, password: string, username: string) => {
+    setLoading(true)
     if (isLogin) {
       if (email && password) {
         signUserIn(email, password);
@@ -38,9 +41,15 @@ function Signup({ isLogin }) {
       }
     }
   };
+  
 
   return (
     <>
+      {loading ? (
+        <div className=" fixed bottom-20 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <Spinner />
+        </div>
+      ) : null}
       <div
         className={`mx-auto py-2 dead-center top-1/2 rounded-sm  w-1/2 ${classes.signup_background}`}
       >
@@ -78,7 +87,9 @@ function Signup({ isLogin }) {
               required
             />
           </div>
-          <div className={` center-signup relative flex-wrap ${classes.signup_input_container}`}>
+          <div
+            className={` center-signup relative flex-wrap ${classes.signup_input_container}`}
+          >
             <label
               className={`absolute  left-14 ${
                 focused === "password"
@@ -107,7 +118,9 @@ function Signup({ isLogin }) {
           ) : null}
           {isLogin ? null : (
             <>
-              <div className={` center-signup relative flex-wrap ${classes.signup_input_container}`}>
+              <div
+                className={` center-signup relative flex-wrap ${classes.signup_input_container}`}
+              >
                 <label
                   className={`absolute  left-14 ${
                     focused === "username"

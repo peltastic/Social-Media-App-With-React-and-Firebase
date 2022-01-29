@@ -1,0 +1,16 @@
+@media (max-width: 950px) {
+  .createpost {
+      width: 90%;
+  }
+}
+@media (max-width: 650px) {
+  .createpost {
+      height: 70vh;
+  }
+}
+@media (max-width: 650px) {
+  .caption_input {
+    width: 90%;
+    margin-bottom: 2rem;
+  }
+}

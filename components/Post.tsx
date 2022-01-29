@@ -95,12 +95,12 @@ function Post({
     <>
       {showComment ? (
         <>
-          <Comments pid={pid} />
           <Backdrop clicked={toggleShowComments} color={"light"} />
         </>
       ) : null}
+      <Comments pid={pid} show={showComment ? "show" : "hide"} />
       <div
-        className={`w-full py-2 mb-12 relative text-white ${classes.post_background}`}
+        className={`w-full mx-auto py-2 mb-12 relative text-white ${classes.post_background}`}
       >
         {isUser ? (
           <button
