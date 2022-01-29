@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import Post from "./Post";
 import classes from "../styles/posts.module.css";
 
-function Posts({ posts }) {
-  // const [uid, smid, username, profilePic] = useContext(UserDataContext)
+
+function Posts({ posts = [] }) {
 
   useEffect(() => {}, []);
 

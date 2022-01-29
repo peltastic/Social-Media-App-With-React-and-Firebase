@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { UserDataContext } from "../AuthContext/UserContextProvider";
 import { GrAdd } from "react-icons/gr";
 import classes from "../styles/nav.module.css";
+import Spinner from "./Spinner";
 
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 
@@ -23,7 +24,6 @@ function Home() {
   };
 
   useEffect(() => {
-    console.log(smid);
 
     const q = query(collection(db, "Posts"), where("isPost", "==", true));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -31,7 +31,6 @@ function Home() {
       querySnapshot.forEach((doc) => {
         posts.push(doc.data());
       });
-      console.log(posts);
       setPosts(posts);
       return posts;
     });
@@ -55,7 +54,13 @@ function Home() {
       <div className=" flex h-screen">
         <div className=" flex w-full">
           <Sidebar clicked={createPostHandler} smid={smid} />
-          <Posts posts={posts} />
+          {posts ? (
+            <Posts posts={posts} />
+          ) : (
+            <div className="dead-center2 top-1/2">
+              <Spinner />
+            </div>
+          )}
         </div>
       </div>
     </>

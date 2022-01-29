@@ -18,8 +18,8 @@ import classes from "../styles/posts.module.css";
 function Post({
   username,
   profilePic,
-  postImage,
-  caption,
+  postImage = "",
+  caption = "",
   postType,
   smid,
   pid,
@@ -165,7 +165,7 @@ function Post({
           />
           <p className="ml-2 text-sm text-gray-400">{commentsCount}</p>
         </div>
-      </div>
+      </div> 
     </>
   );
 }

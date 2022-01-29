@@ -63,7 +63,6 @@ function UserProfile() {
       for (const key in doc.data()) {
         followersData.push(doc.data()[key]);
       }
-      console.log("ran");
       setFollowersCount(followersData.length);
       const isFollowingData = followersData.filter((el) => el === userSmid);
       if (isFollowingData.length > 0) {
@@ -71,7 +70,6 @@ function UserProfile() {
       } else {
         setIsFollowing(false);
       }
-      console.log(isFollowingData);
     });
   };
 
@@ -99,7 +97,6 @@ function UserProfile() {
 
   const followHandler = () => {
     if (smid && userSmid) {
-      // setIsFollowing(!isFollowing)
       if (isFollowing) {
         updateUnfollowing(userSmid, smid);
       } else {

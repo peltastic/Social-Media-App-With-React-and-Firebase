@@ -61,7 +61,6 @@ const uploadPostImage = (
       return setDoc(doc(db, "comments", pid), {});
     })
     .then(() => {
-      console.log("posted!");
       close();
     });
 };
@@ -114,6 +113,5 @@ export const sendPost = async (
     });
     await setDoc(doc(db, "comments", pid), {});
     close();
-    console.log("posted!");
   }
 };

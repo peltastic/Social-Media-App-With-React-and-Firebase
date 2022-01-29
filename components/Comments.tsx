@@ -20,7 +20,6 @@ function Comments({ pid, show}) {
         for (const key in doc.data()) {
           commentData.push(doc.data()[key]);
         }
-        console.log(commentData);
         setPostComments(commentData);
       }
     });

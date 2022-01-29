@@ -17,7 +17,6 @@ export async function likePost(
   await updateDoc(likesRef, {
     count: likesCount + 1,
   });
-  console.log("liked");
 }
 export async function unlikePost(
   userSmid: string,
@@ -31,7 +30,6 @@ export async function unlikePost(
   await updateDoc(likesRef, {
     [userSmid]: deleteField(),
   });
-  console.log("liked");
 }
 
 export async function addComment(
