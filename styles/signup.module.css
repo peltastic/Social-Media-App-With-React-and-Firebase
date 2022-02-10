@@ -4,15 +4,13 @@
   box-shadow: 6px 6px 12px #513a3a, -6px -6px 12px #795656;
 }
 
-@media (max-width: 800px) {
-  .signup_background {
-    width: 70%;
-  }
+.signup_input_container label {
+  left: 0rem;
+  font-size: .8rem;
 }
-@media (max-width: 600px) {
-  .signup_background {
-    width: 85%;
-  }
+
+.signup_input_container input {
+  font-size: .8rem;
 }
 
 @media (max-width: 1200px) {
@@ -20,3 +18,30 @@
     width: 70%;
   }
 }
+@media (max-width: 600px) {
+  .signup_input_container {
+    width: 90%;
+  }
+
+  .signup_input_container label {
+    left: 0rem;
+    font-size: .5rem;
+  }
+
+  .signup_input_container input {
+    padding-left: 3.5rem;
+    font-size: .7rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .signup_background {
+    width: 70%;
+  }
+}
+@media (max-width: 600px) {
+  .signup_background {
+    width: 95%;
+  }
+}
+

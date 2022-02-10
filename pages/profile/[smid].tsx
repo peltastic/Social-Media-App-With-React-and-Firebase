@@ -109,6 +109,27 @@ function UserProfile() {
     setShowCreatePost(!showCreatePost);
   };
 
+  let userPostContent:any = <p className="m-auto text-center">No Posts Yet</p>
+
+  if (userPost.length > 0) {
+    userPostContent = <>
+    {userPost.map((item, index) => (
+            <Post
+              key={index}
+              username={item.username}
+              profilePic={item.profilePic}
+              caption={item.post}
+              postImage={item.postImage}
+              postType={item.postType}
+              smid={item.smid}
+              pid={item.pid}
+              isUser={isUser}
+            />
+          ))}
+    </>
+  }
+
+
   return (
     <>
       {showCreatePost ? (
@@ -157,19 +178,7 @@ function UserProfile() {
 
         <div className="w-full border mt-8 mb-10"></div>
         <div className=" px-8 w-full  ">
-          {userPost.map((item, index) => (
-            <Post
-              key={index}
-              username={item.username}
-              profilePic={item.profilePic}
-              caption={item.post}
-              postImage={item.postImage}
-              postType={item.postType}
-              smid={item.smid}
-              pid={item.pid}
-              isUser={isUser}
-            />
-          ))}
+          {userPostContent}
         </div>
       </div>
     </>

@@ -88,14 +88,13 @@
   .createpost_button_small {
     display: block;
     
-    font-size: 2rem;
+    font-size: 1rem;
   }
 }
 
 .cp_bg {
   border-radius: 100%;
   background: #654848;
-  box-shadow: 5px 5px 10px #513a3a, -5px -5px 10px #795656;
   padding: .5rem;
   position: fixed;
     bottom: 2rem;

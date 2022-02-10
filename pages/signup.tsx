@@ -4,11 +4,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import classes from "../styles/signup.module.css";
 import Spinner from "../components/Spinner";
+import {BiShow} from "react-icons/bi"
 
 function Signup({ isLogin }) {
   const router = useRouter();
   const [focused, setFocused] = useState("none");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -63,17 +65,17 @@ function Signup({ isLogin }) {
           }
         >
           <div
-            className={`center-signup relative flex-wrap ${classes.signup_input_container}`}
+            className={`center-signup relative my-8 flex-wrap ${classes.signup_input_container}`}
           >
             <label
-              className={`absolute  left-10 ${
-                focused === "email" ? "top-0 text-sm text-white" : "top-1/2  "
-              }  -translate-x-1/2 -translate-y-1/2 transition-all`}
+              className={` absolute  ${
+                focused === "email" ? "-top-[20px] translate-x-2 text-sm text-white" : "top-1/2 left-0 translate-x-2 -translate-y-1/2"
+              }   transition-all`}
             >
-              Email
+              EMAIL
             </label>
             <input
-              className="border-input w-full rounded-3xl py-1 my-3 px-4 pl-20"
+              className="border-input w-full rounded-3xl py-1 px-4 pl-20"
               type="email"
               name=""
               onChange={(e) => {
@@ -87,20 +89,20 @@ function Signup({ isLogin }) {
             />
           </div>
           <div
-            className={` center-signup relative flex-wrap ${classes.signup_input_container}`}
+            className={` center-signup relative my-8 flex-wrap ${classes.signup_input_container}`}
           >
             <label
-              className={`absolute  left-14 ${
+              className={`absolute   ${
                 focused === "password"
-                  ? "top-0 text-sm  text-white"
-                  : "top-1/2  "
-              }  -translate-x-1/2 -translate-y-1/2 transition-all`}
+                  ? "-top-[20px] text-sm translate-x-2  text-white"
+                  :  "top-1/2 translate-x-2 -translate-y-1/2"
+              }  transition-all`}
             >
-              Password
+              PASSWORD
             </label>
             <input
-              className="border-input w-full rounded-3xl py-1 my-3 px-4 pl-24"
-              type="password"
+              className="border-input w-full rounded-3xl py-1 px-4 pl-24"
+              type={showPassword ? "text" : "password"}
               name=""
               onChange={(e) => {
                 setCredentials({
@@ -111,6 +113,7 @@ function Signup({ isLogin }) {
               onFocus={() => setFocused("password")}
               required
             />
+            <BiShow className=" cursor-pointer absolute right-3 top-1/2 -translate-y-1/2" onClick={ ()=> setShowPassword(!showPassword)} />
           </div>
           {isLogin && credentialErr ? (
             <p className="text-red-600 text-center">Enter Empty Fields!</p>
@@ -118,19 +121,19 @@ function Signup({ isLogin }) {
           {isLogin ? null : (
             <>
               <div
-                className={` center-signup relative flex-wrap ${classes.signup_input_container}`}
+                className={` center-signup relative my-8 flex-wrap ${classes.signup_input_container}`}
               >
                 <label
-                  className={`absolute  left-14 ${
+                  className={`absolute  ${
                     focused === "username"
-                      ? "top-0 text-sm text-white"
-                      : "top-1/2  "
-                  } -translate-x-1/2 -translate-y-1/2 transition-all`}
+                      ? "-top-[20px] text-sm translate-x-2 text-white"
+                      : "top-1/2 left-0 translate-x-2 -translate-y-1/2"
+                  }  transition-all`}
                 >
-                  Username
+                  USERNAME
                 </label>
                 <input
-                  className="border-input w-full rounded-3xl py-1 my-3 px-4 pl-24"
+                  className="border-input w-full rounded-3xl py-1 px-4 pl-24"
                   type="text"
                   name=""
                   onChange={(e) => {

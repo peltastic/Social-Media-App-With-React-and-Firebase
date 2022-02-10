@@ -14,7 +14,7 @@ function Comments({ pid, show}) {
   const [postComments, setPostComments] = useState([]);
 
   useEffect(() => {
-    const unsub = onSnapshot(doc(db, "comments", pid), (doc) => {
+    const unsub:any = onSnapshot(doc(db, "comments", pid), (doc) => {
       if (doc.data()) {
         const commentData = [];
         for (const key in doc.data()) {
@@ -35,7 +35,7 @@ function Comments({ pid, show}) {
     }
   };
 
-  let Comments = <p className="text-gray-400 ">No Comments</p>;
+  let Comments:any = <p className="text-gray-400 ">No Comments</p>;
   if (postComments.length > 0) {
     Comments = (
       <>
@@ -59,8 +59,8 @@ function Comments({ pid, show}) {
         <form onSubmit={addCommentHandler}>
           <input
             type="text"
-            placeholder="Add comment"
-            className=" w-full border-b border-white bg-transparent text-white focus: outline-none"
+            placeholder="ADD COMMENT"
+            className=" w-[95%] mx-auto px-4 py-[5px] text-xs border rounded-md my-1 border-gray-400 bg-transparent text-white focus: outline-none"
             value={comment}
             onChange={(e) => {
               const comment = e.target.value;
@@ -68,7 +68,7 @@ function Comments({ pid, show}) {
             }}
           />
           <IoMdSend
-            className="absolute right-4 bottom-1 text-lg cursor-pointer"
+            className="absolute right-8 bottom-2 text-lg cursor-pointer"
             onClick={addCommentHandler}
           />
         </form>
