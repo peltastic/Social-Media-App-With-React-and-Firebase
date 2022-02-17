@@ -1,16 +1,24 @@
 import { useState } from "react";
-import { signUserUp, signUserIn } from "../functions/auth";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import classes from "../styles/signup.module.css";
 import Spinner from "../components/Spinner";
-import {BiShow} from "react-icons/bi"
+import { BiShow } from "react-icons/bi";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { db } from "../firebaseconfig/firebase";
+import { auth } from "../firebaseconfig/firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 function Signup({ isLogin }) {
   const router = useRouter();
   const [focused, setFocused] = useState("none");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isErr, setIsErr] = useState(false);
+  const [errMessage, setErrMessage] = useState("");
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -25,12 +33,10 @@ function Signup({ isLogin }) {
     if (isLogin) {
       if (email && password) {
         signUserIn(email, password);
-        router.push("/");
       }
     } else {
       if (email && password && username) {
         signUserUp(email, password, username);
-        router.push("/upload");
       }
     }
     if (isLogin) {
@@ -44,12 +50,71 @@ function Signup({ isLogin }) {
     }
   };
 
+  async function createUserData(
+    uid: string,
+    username: string,
+    smid: string,
+    email: string
+  ) {
+    await setDoc(doc(db, "users", uid), {
+      username: username,
+      smid: smid,
+      email: email,
+      uid: uid,
+    });
+
+    await setDoc(doc(db, "followers", smid), {});
+    await setDoc(doc(db, "following", smid), {});
+  }
+
+  function signUserUp(email: string, password: string, username: string) {
+    setIsErr(false);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const smid = "smid" + Math.floor(Math.random() * 100000);
+        const user = userCredential.user;
+        createUserData(user.uid, username, smid, email);
+        router.push("/upload");
+        // ...
+      })
+      .catch((error) => {
+        // const errorCode = error.code;
+        const errorMessage = error.message;
+        setIsErr(true);
+        setErrMessage(errorMessage);
+        console.log(errMessage);
+
+        // ..
+      });
+  }
+
+  function signUserIn(email: string, password: string) {
+    setIsErr(false);
+    let message;
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        router.push("/");
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        message = errorMessage;
+        setIsErr(true);
+        setErrMessage(errorMessage);
+      });
+
+    return message;
+  }
+
   return (
     <>
       <div
         className={`mx-auto py-2 dead-center top-1/2 rounded-sm  w-1/2 ${classes.signup_background}`}
       >
-        {loading ? (
+        {loading && !isErr ? (
           <div className=" dead-center -bottom-4">
             <Spinner />
           </div>
@@ -69,7 +134,9 @@ function Signup({ isLogin }) {
           >
             <label
               className={` absolute  ${
-                focused === "email" ? "-top-[20px] translate-x-2 text-sm text-white" : "top-1/2 left-0 translate-x-2 -translate-y-1/2"
+                focused === "email"
+                  ? "-top-[20px] translate-x-2 text-sm text-white"
+                  : "top-1/2 left-0 translate-x-2 -translate-y-1/2"
               }   transition-all`}
             >
               EMAIL
@@ -95,7 +162,7 @@ function Signup({ isLogin }) {
               className={`absolute   ${
                 focused === "password"
                   ? "-top-[20px] text-sm translate-x-2  text-white"
-                  :  "top-1/2 translate-x-2 -translate-y-1/2"
+                  : "top-1/2 translate-x-2 -translate-y-1/2"
               }  transition-all`}
             >
               PASSWORD
@@ -113,7 +180,10 @@ function Signup({ isLogin }) {
               onFocus={() => setFocused("password")}
               required
             />
-            <BiShow className=" cursor-pointer absolute right-3 top-1/2 -translate-y-1/2" onClick={ ()=> setShowPassword(!showPassword)} />
+            <BiShow
+              className=" cursor-pointer absolute right-3 top-1/2 -translate-y-1/2"
+              onClick={() => setShowPassword(!showPassword)}
+            />
           </div>
           {isLogin && credentialErr ? (
             <p className="text-red-600 text-center">Enter Empty Fields!</p>
@@ -151,6 +221,7 @@ function Signup({ isLogin }) {
               ) : null}
             </>
           )}
+          {isErr ? <>{errMessage ? <p className="text-red-600 text-center">{errMessage}</p> : ""}</> : null}
         </form>
         {!isLogin ? (
           <div className=" mx-auto mt-4 items-center flex flex-col">
